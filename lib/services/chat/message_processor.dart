@@ -1,3 +1,5 @@
+import 'package:athena/card/zepto_card.dart';
+
 import '../../card/bus_card.dart';
 import '../../card/airplane_card.dart';
 import '../../card/airbnb_card.dart';
@@ -90,6 +92,9 @@ void processServerResponse({
         addCardsToMessages<MoviesTimingCard>(
             responseData, "moviesTiming", getMoviesTimingCards);
         break;
+      case "zepto":
+        addCardsToMessages<ZeptoCard>(
+            responseData, "moviesList", getZeptoCards);
       default:
         messages.add({
           "type": "text",
