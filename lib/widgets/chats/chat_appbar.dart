@@ -42,9 +42,9 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                   letterSpacing: 5,
                   fontSize: 30,
                   shadows: [Shadow(
-                    color: Colors.purpleAccent,
+                    color: Colors.purple,
                     offset: Offset(0, 0),
-                    blurRadius: 5.0,
+                    blurRadius: 50.0,
                   )],
                 ),
               ),
