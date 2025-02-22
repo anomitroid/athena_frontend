@@ -36,7 +36,12 @@ class ChatList extends StatelessWidget {
                 padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
                   color: isUser ? Colors.purpleAccent : Colors.grey[800],
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.only(
+                    topLeft: isUser ? Radius.circular(16) : Radius.zero,
+                    topRight: isUser ? Radius.zero : Radius.circular(16),
+                    bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
+                  ),
                 ),
                 child: Text(
                   msg["text"].toString(),
