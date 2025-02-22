@@ -14,74 +14,45 @@ Widget buildMessageWithIcon({
     }
   }
 
-  const double iconAreaWidth = 40.0;
-  const double spacing = 8.0;
-  Widget iconWidget;
-  if (showIcon) {
-    if (isUser) {
-      iconWidget = Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: Container(
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.purpleAccent,
-          ),
-          padding: const EdgeInsets.all(4.0),
-          alignment: Alignment.center,
-          child: const Icon(
-            Icons.person_rounded,
-            size: 30.0,
-            color: Colors.white,
-          ),
-        ),
-      );
-    } else {
-      iconWidget = Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.grey[800],
-          ),
-          padding: const EdgeInsets.all(4.0),
-          alignment: Alignment.center,
-          child: const Icon(
-            Icons.smart_toy_rounded,
-            size: 30.0,
-            color: Colors.white,
-          ),
-        ),
-      );
-    }
-  } else {
-    iconWidget = const SizedBox(width: iconAreaWidth);
-  }
+  const double iconPadding = 4.0;
+  const double iconSizeValue = 30.0;
+  // Calculate overall icon height (icon + vertical padding)
+  const double overallIconHeight = iconSizeValue + (iconPadding * 2);
 
-  if (isUser) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Flexible(child: messageWidget),
-          const SizedBox(width: spacing),
-          SizedBox(width: iconAreaWidth, child: iconWidget),
-        ],
-      ),
-    );
-  } else {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(width: iconAreaWidth, child: iconWidget),
-          const SizedBox(width: spacing),
-          Flexible(child: messageWidget),
-        ],
-      ),
-    );
-  }
+  Widget iconWidget = Container(
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      color: isUser ? Colors.purpleAccent : Colors.grey[800],
+    ),
+    padding: const EdgeInsets.all(iconPadding),
+    child: Icon(
+      isUser ? Icons.person_rounded : Icons.smart_toy_rounded,
+      size: iconSizeValue,
+      color: Colors.white,
+    ),
+  );
+
+  return Align(
+    alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
+    child: Stack(
+      clipBehavior: Clip.none,
+      children: [
+        // Push the message down by the icon's height so the icon sits above it.
+        Container(
+          margin: showIcon
+              ? const EdgeInsets.only(top: overallIconHeight)
+              : EdgeInsets.zero,
+          child: messageWidget,
+        ),
+        if (showIcon)
+          Positioned(
+            top: 0,
+            // For bot messages, align icon to the left; for user messages, to the right.
+            left: isUser ? null : 0,
+            right: isUser ? 0 : null,
+            child: iconWidget,
+          ),
+      ],
+    ),
+  );
 }
