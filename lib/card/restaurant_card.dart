@@ -69,7 +69,11 @@ class RestaurantCard extends StatelessWidget {
         widthFactor: 0.75, // 3/4 of the viewport width
         child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.zero,
+                topRight: Radius.circular(16),
+                bottomLeft: Radius.circular(16),
+                bottomRight: Radius.circular(16)),
           ),
           elevation: 2,
           // Optionally set a background color if needed:
@@ -80,7 +84,11 @@ class RestaurantCard extends StatelessWidget {
             children: [
               // Restaurant image
               ClipRRect(
-                borderRadius: BorderRadius.circular(16.0),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.zero,
+                    topRight: Radius.circular(16),
+                    bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16)),
                 child: Image.network(
                   image_url,
                   height: 220,
@@ -88,13 +96,11 @@ class RestaurantCard extends StatelessWidget {
                   fit: BoxFit.cover,
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) return child;
-                    return const Center(
-                        child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   },
                   errorBuilder: (context, error, stackTrace) {
                     return const Center(
-                      child:
-                          Icon(Icons.image_not_supported, size: 50),
+                      child: Icon(Icons.image_not_supported, size: 50),
                     );
                   },
                 ),
@@ -157,12 +163,12 @@ List<RestaurantCard> getRestaurantCards(List<Map<String, String>> response) {
 
   return restaurantDataList.map((response) {
     return RestaurantCard(
-      image_url: response["image"] ?? "",
-      restaurant_url: response["url"] ?? "",
-      name: response["name"] ?? "",
-      rating: response["star"] ?? "",
-      number: response["number_of_reviews"] ?? "",
-      tags: (response["tags"] ?? "").split(",").map((e) => e.trim()).toList()
-    );
+        image_url: response["image"] ?? "",
+        restaurant_url: response["url"] ?? "",
+        name: response["name"] ?? "",
+        rating: response["star"] ?? "",
+        number: response["number_of_reviews"] ?? "",
+        tags:
+            (response["tags"] ?? "").split(",").map((e) => e.trim()).toList());
   }).toList();
 }
