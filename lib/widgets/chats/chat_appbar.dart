@@ -53,6 +53,11 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
             backgroundColor:
                 Colors.transparent, // Ensure background is transparent
             elevation: 0,
+            leading: IconButton(
+                // temp onpressed function
+                onPressed: onClear, 
+                icon: const Icon(Icons.menu_rounded),
+                ),
             actions: [
               Container(
                 margin: EdgeInsets.only(right: 10),
