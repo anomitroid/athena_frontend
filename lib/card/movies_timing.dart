@@ -1,13 +1,14 @@
 // lib/card/movies_timing.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-/// A card widget that displays movie timing information
 class MoviesTimingCard extends StatelessWidget {
   final String theater;
   final String time;
   final String special;
   final String format;
+  final String url;
 
   const MoviesTimingCard({
     super.key,
@@ -15,42 +16,30 @@ class MoviesTimingCard extends StatelessWidget {
     required this.time,
     required this.special,
     required this.format,
+    required this.url,
   });
+
+  Future<void> _launchUrl() async {
+    if (url.isEmpty) return;
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
       widthFactor: 0.75,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
-        ),
-        elevation: 2,
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: GestureDetector(
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext dialogContext) {
-                  return AlertDialog(
-                    title: const Text("Show Details"),
-                    content: Text(
-                      "Theater: $theater\n"
-                      "Time: $time\n"
-                      "Special: $special\n"
-                      "Format: $format",
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.of(dialogContext).pop(),
-                        child: const Text("OK"),
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
+      child: Animate(
+        effects: [FadeEffect(duration: 300.ms), SlideEffect()],
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          elevation: 2.0,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,65 +51,84 @@ class MoviesTimingCard extends StatelessWidget {
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 12),
-                // Timing information
+
+                // Movie details
+                _buildInfoRow("Format", format),
+                _buildInfoRow("Special", special),
+                const SizedBox(height: 12),
+
+                // Time and booking
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildInfoRow("Time", time),
-                        _buildInfoRow("Special", special),
-                        _buildInfoRow("Format", format),
-                      ],
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 8),
-                      decoration: BoxDecoration(
-                        color: Colors.black54,
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Colors.white70),
-                      ),
+                    Expanded(
                       child: Text(
                         time,
                         style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.blueAccent,
                         ),
                       ),
                     ),
+                    if (url.isNotEmpty)
+                      GestureDetector(
+                        onTap: _launchUrl,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
+                          decoration: BoxDecoration(
+                            color: Colors.blue[800],
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Text(
+                            "Book Now",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
                   ],
                 ),
-                const SizedBox(height: 8),
               ],
             ),
           ),
         ),
-      ).animate().fade(duration: 300.ms).slideX(),
+      )
     );
   }
 
   Widget _buildInfoRow(String label, String value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "$label: ",
-            style: const TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 14,
+          SizedBox(
+            width: 70,
+            child: Text(
+              "$label:",
+              style: const TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
+              ),
             ),
           ),
-          Text(
-            value,
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.grey,
+          Expanded(
+            child: Text(
+              value,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.grey,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],
@@ -129,14 +137,14 @@ class MoviesTimingCard extends StatelessWidget {
   }
 }
 
-/// Converts API response to list of MoviesTimingCards
 List<MoviesTimingCard> getMoviesTimingCards(List<Map<String, String>> response) {
   return response.map((showData) {
     return MoviesTimingCard(
-      theater: showData["theatre"] ?? "Unknown Theater",
+      theater: showData["theater"] ?? "Unknown Theater",
       time: showData["time"] ?? "--:--",
       special: showData["special"] ?? "Standard",
       format: showData["format"] ?? "2D",
+      url: showData["url"] ?? "",
     );
   }).toList();
 }
