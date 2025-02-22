@@ -59,12 +59,12 @@ class ChatList extends StatelessWidget {
                 maxHeight: 250,
               ),
               child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: isUser ? Radius.circular(16) : Radius.zero,
-                    topRight: isUser ? Radius.zero : Radius.circular(16),
-                    bottomLeft: Radius.circular(16),
-                    bottomRight: Radius.circular(16),
-                  ),
+                borderRadius: BorderRadius.only(
+                  topLeft: isUser ? Radius.circular(16) : Radius.zero,
+                  topRight: isUser ? Radius.zero : Radius.circular(16),
+                  bottomLeft: Radius.circular(16),
+                  bottomRight: Radius.circular(16),
+                ),
                 child: Image.file(File(msg["imagePath"]), fit: BoxFit.cover),
               ),
             );
@@ -102,6 +102,23 @@ class ChatList extends StatelessWidget {
           // For card types and others, assume msg["data"] is a widget.
           default:
             bubble = msg["data"];
+
+            // tried making bubble for all look good from here only was not successfull
+            
+            // bubble = ConstrainedBox(
+            //   constraints: BoxConstraints(maxWidth: maxBubbleWidth),
+            //   child: Container(
+            //     decoration: BoxDecoration(
+            //       borderRadius: BorderRadius.only(
+            //         topLeft: Radius.zero,
+            //         topRight: Radius.circular(16),
+            //         bottomLeft: Radius.circular(16),
+            //         bottomRight: Radius.circular(16),
+            //       ),
+            //     ),
+            //     child: msg["data"],
+            //   ),
+            // );
             break;
         }
         return buildMessageWithIcon(
