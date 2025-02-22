@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../chats/chat_appbar.dart';
 
 Widget buildMessageWithIcon({
   required Widget messageWidget,
