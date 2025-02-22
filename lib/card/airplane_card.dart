@@ -203,7 +203,7 @@ class AirplaneCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      layover == "0" ? "Nonstop" : "${layover} Stop${layover != "1" ? "s" : ""}",
+                      layover == "0" ? "Nonstop" : "$layover Stop${layover != "1" ? "s" : ""}",
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 12,
