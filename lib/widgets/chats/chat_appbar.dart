@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -7,30 +8,48 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      title: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-        decoration: BoxDecoration(
-          color: Colors.grey[900],
-          borderRadius: BorderRadius.circular(50),
-        ),
-        child: const Text(
-          "ATHENA",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontFamily: "nasa",
-            color: Colors.purpleAccent,
-            letterSpacing: 5,
-            fontSize: 30,
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(kToolbarHeight),
+      child: Stack(
+        children: [
+          // Blurred background only inside the AppBar area
+          Positioned.fill(
+            child: ClipRect( // Ensures blur is constrained to AppBar
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Frosted glass effect
+                child: Container(
+                  color: Colors.purpleAccent.withAlpha(20), // Adjust transparency
+                ),
+              ),
+            ),
           ),
-        ),
-      ),
-      centerTitle: true,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: IconButton(
-        icon: const Icon(Icons.replay_rounded, color: Colors.grey),
-        onPressed: onClear,
+          AppBar(
+            title: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+              decoration: BoxDecoration(
+                color: Colors.black, // Solid background for title
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: const Text(
+                "ATHENA",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "nasa",
+                  color: Colors.purpleAccent,
+                  letterSpacing: 5,
+                  fontSize: 30,
+                ),
+              ),
+            ),
+            centerTitle: true,
+            backgroundColor: Colors.transparent, // Ensure background is transparent
+            elevation: 0,
+            leading: IconButton(
+              icon: const Icon(Icons.replay_rounded, color: Colors.grey),
+              onPressed: onClear,
+            ),
+          ),
+        ],
       ),
     );
   }
