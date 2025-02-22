@@ -15,7 +15,8 @@ Future<void> sendImageToServerHelper({
   required XFile imageFile,
   required List<Map<String, dynamic>> messages,
   // You can override the URL if needed.
-  String uploadUrl = 'https://just-mainly-monster.ngrok-free.app/',
+  // String uploadUrl = 'https://just-mainly-monster.ngrok-free.app/',
+  String uploadUrl = 'https://localhost:3000',
 }) async {
   File file = File(imageFile.path);
 
