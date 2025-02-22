@@ -65,7 +65,11 @@ class FashionShopping extends StatelessWidget {
         widthFactor: 0.75, // 3/4 of the viewport width
         child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.zero,
+                topRight: Radius.circular(16),
+                bottomLeft: Radius.circular(16),
+                bottomRight: Radius.circular(16)),
           ),
           elevation: 4,
           child: Stack(
@@ -75,7 +79,11 @@ class FashionShopping extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(16.0),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.zero,
+                        topRight: Radius.circular(16),
+                        bottomLeft: Radius.circular(16),
+                        bottomRight: Radius.circular(16)),
                     child: FutureBuilder<Size>(
                       future: _getImageSize(imageUrl),
                       builder: (context, snapshot) {
@@ -140,7 +148,11 @@ class FashionShopping extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
                     color: const Color.fromARGB(80, 0, 0, 0),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.zero,
+                        topRight: Radius.circular(16),
+                        bottomLeft: Radius.circular(16),
+                        bottomRight: Radius.circular(16)),
                   ),
                   child: Text(
                     brand,
