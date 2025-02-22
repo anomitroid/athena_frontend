@@ -71,7 +71,11 @@ class MoviesListCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(16.0),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.zero,
+                        topRight: Radius.circular(16),
+                        bottomLeft: Radius.circular(16),
+                        bottomRight: Radius.circular(16)),
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return AspectRatio(
@@ -132,7 +136,11 @@ class MoviesListCard extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
                     color: const Color.fromARGB(80, 0, 0, 0),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.zero,
+                        topRight: Radius.circular(16),
+                        bottomLeft: Radius.circular(16),
+                        bottomRight: Radius.circular(16)),
                   ),
                   child: Text(
                     language,
@@ -165,4 +173,3 @@ List<MoviesListCard> getMoviesListCards(List<Map<String, String>> response) {
     );
   }).toList();
 }
-

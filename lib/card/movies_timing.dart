@@ -35,7 +35,12 @@ class MoviesTimingCard extends StatelessWidget {
         effects: [FadeEffect(duration: 300.ms), SlideEffect(begin: Offset(-1, 0), end: Offset(0, 0), duration: 300.ms)],
         child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.only(
+              topLeft: Radius.zero,
+              topRight: Radius.circular(16),
+              bottomLeft: Radius.circular(16),
+              bottomRight: Radius.circular(16)
+              ),
           ),
           elevation: 2.0,
           child: Padding(
