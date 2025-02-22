@@ -14,11 +14,14 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           // Blurred background only inside the AppBar area
           Positioned.fill(
-            child: ClipRect( // Ensures blur is constrained to AppBar
+            child: ClipRect(
+              // Ensures blur is constrained to AppBar
               child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Frosted glass effect
+                filter: ImageFilter.blur(
+                    sigmaX: 10, sigmaY: 10), // Frosted glass effect
                 child: Container(
-                  color: Colors.purpleAccent.withAlpha(20), // Adjust transparency
+                  color:
+                      Colors.purpleAccent.withAlpha(20), // Adjust transparency
                 ),
               ),
             ),
@@ -27,7 +30,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
             title: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
               decoration: BoxDecoration(
-                color: Colors.black, // Solid background for title
+                color: Colors.transparent, // Solid background for title
                 borderRadius: BorderRadius.circular(50),
               ),
               child: const Text(
@@ -38,16 +41,27 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                   color: Colors.purpleAccent,
                   letterSpacing: 5,
                   fontSize: 30,
+                  shadows: [Shadow(
+                    color: Colors.purpleAccent,
+                    offset: Offset(0, 0),
+                    blurRadius: 5.0,
+                  )],
                 ),
               ),
             ),
             centerTitle: true,
-            backgroundColor: Colors.transparent, // Ensure background is transparent
+            backgroundColor:
+                Colors.transparent, // Ensure background is transparent
             elevation: 0,
-            leading: IconButton(
-              icon: const Icon(Icons.replay_rounded, color: Colors.grey),
-              onPressed: onClear,
-            ),
+            actions: [
+              Container(
+                margin: EdgeInsets.only(right: 10),
+                child: IconButton(
+                  icon: const Icon(Icons.replay_rounded, color: Colors.grey),
+                  onPressed: onClear,
+                ),
+              ),
+            ],
           ),
         ],
       ),
