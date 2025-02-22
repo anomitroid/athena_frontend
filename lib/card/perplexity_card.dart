@@ -114,12 +114,12 @@ class PerplexityCard extends StatelessWidget {
 }
 
 List<PerplexityCard> getPerplexityCards(dynamic response) {
-  final Map<String, dynamic> newsData = response;
+  final List<Map<String, String>> newsDataList = response;
 
-  return [
-    PerplexityCard(
-      content: newsData['response_content'],
-      sources: List<String>.from(newsData['response_url']),
-    )
-  ];
+  return newsDataList.map((newsData) {
+    return PerplexityCard(
+      content: newsData['response_content']!,
+      sources: List<String>.from(newsData['response_url']!.split(',')),
+    );
+  }).toList();
 }
