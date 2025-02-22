@@ -53,7 +53,7 @@ class ZeptoCard extends StatelessWidget {
         );
       },
       child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.9,
+        width: MediaQuery.of(context).size.width * 0.85,
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -72,13 +72,12 @@ class ZeptoCard extends StatelessWidget {
                     width: 100,
                     height: 100,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => 
-                      Container(
-                        width: 100,
-                        height: 100,
-                        color: Colors.grey[200],
-                        child: const Icon(Icons.shopping_bag),
-                      ),
+                    errorBuilder: (context, error, stackTrace) => Container(
+                      width: 100,
+                      height: 100,
+                      color: Colors.grey[200],
+                      child: const Icon(Icons.shopping_bag),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -101,17 +100,16 @@ class ZeptoCard extends StatelessWidget {
                       const SizedBox(height: 4),
 
                       // Subtitle
-                      if (subtitle != null && subtitle!.isNotEmpty)
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 4),
-                          child: Text(
-                            subtitle!,
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[600],
-                            ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: Text(
+                          "Quantity: ${subtitle != "null" ? subtitle : "1"}",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[600],
                           ),
                         ),
+                      ),
 
                       // Price
                       Text(
@@ -119,7 +117,7 @@ class ZeptoCard extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.green,
+                          color: Colors.white,
                         ),
                       ),
                     ],
@@ -141,7 +139,7 @@ List<ZeptoCard> getZeptoCards(List<Map<String, dynamic>> response) {
       url: product["url"]?.toString() ?? "",
       img: product["img"]?.toString() ?? "",
       name: product["name"]?.toString() ?? "Unnamed Product",
-      subtitle: product["subtitle"]?.toString(),
+      subtitle: product["subtitle"]?.toString() ?? "",
       price: product["price"]?.toString() ?? "₹—",
     );
   }).toList();
