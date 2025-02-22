@@ -74,7 +74,11 @@ class AmazonCard extends StatelessWidget {
       },
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.zero,
+              topRight: Radius.circular(16),
+              bottomLeft: Radius.circular(16),
+              bottomRight: Radius.circular(16)),
         ),
         elevation: 4,
         child: SizedBox(
@@ -99,13 +103,11 @@ class AmazonCard extends StatelessWidget {
                       fit: BoxFit.contain,
                       loadingBuilder: (context, child, loadingProgress) {
                         if (loadingProgress == null) return child;
-                        return const Center(
-                            child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       },
                       errorBuilder: (context, error, stackTrace) {
                         return const Center(
-                          child:
-                              Icon(Icons.image_not_supported, size: 50),
+                          child: Icon(Icons.image_not_supported, size: 50),
                         );
                       },
                     ),
