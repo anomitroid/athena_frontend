@@ -200,16 +200,16 @@ List<AirplaneCard> getAirplaneCards(List<Map<String, String>> response) {
 
   return airplaneDataList.map((response) {
     return AirplaneCard(
-      planeName: response["plane_name"] ?? "",
-      planeType: response["plane_type"] ?? "",
+      planeName: response["airline"] ?? "",
+      planeType: "",
       departureTime: response["departure_time"] ?? "",
-      departureDate: response["departure_date"] ?? "",
+      departureDate: "",
       arrivalTime: response["arrival_time"] ?? "",
-      arrivalDate: response["arrival_date"] ?? "",
-      duration: response["duration"] ?? "",
+      arrivalDate: "",
+      duration: response["duration"]?.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '') ?? "",
       finalPrice: response["final_price"] ?? "",
-      nonstop: response["nonstop"] ?? "",
-      seatsAvailable: response["seats_available"] ?? "",
+      nonstop: response["layover"] ?? "",
+      seatsAvailable: "",
       url: response["url"] ?? "",
     );
   }).toList();
