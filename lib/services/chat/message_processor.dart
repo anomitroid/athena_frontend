@@ -7,6 +7,8 @@ import '../../card/restaurant_card.dart';
 import '../../card/fashion_shopping.dart';
 import '../../card/perplexity_card.dart';
 import '../../card/uber_card.dart';
+import '../../card/movies_list.dart';
+import '../../card/movies_timing.dart';
 
 // Helper to convert dynamic maps to Map<String, String>.
 List<Map<String, String>> quoteKeysAndValues(dynamic response) {
@@ -81,6 +83,8 @@ void processServerResponse({
         break;
       case "uber":
         addCardsToMessages<UberCard>(responseData, "uber", getUberCards);
+      case "moviesList":
+        addCardsToMessages<MoviesListCard>(responseData, "moviesList", getMoviesListCards);
         break;
       default:
         messages.add({

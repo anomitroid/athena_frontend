@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class MovieList extends StatelessWidget {
+class MoviesListCard extends StatelessWidget {
   final String title;
   final String poster;
   final String ageRating;
   final String movieUrl;
   final String language;
 
-  const MovieList({
+  const MoviesListCard({
     super.key,
     required this.title,
     required this.poster,
@@ -30,8 +30,8 @@ class MovieList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        showDialog<bool>(
+      onTap: () async {
+        final confirmed = await showDialog<bool>(
           context: context,
           builder: (BuildContext dialogContext) {
             return AlertDialog(
@@ -51,11 +51,11 @@ class MovieList extends StatelessWidget {
               ],
             );
           },
-        ).then((confirmed) {
-          if (confirmed == true) {
-            _launchURL();
-          }
-        });
+        );
+
+        if (confirmed == true) {
+          _launchURL();
+        }
       },
       child: FractionallySizedBox(
         widthFactor: 0.75, // 3/4 of the viewport width
@@ -152,11 +152,11 @@ class MovieList extends StatelessWidget {
   }
 }
 
-List<MovieList> getMoviesListCards(List<Map<String, String>> response) {
-  final List<Map<String, dynamic>> movieListDataList = response;
+List<MoviesListCard> getMoviesListCards(List<Map<String, String>> response) {
+  final List<Map<String, dynamic>> moviesListDataList = response;
 
-  return movieListDataList.map((response) {
-    return MovieList(
+  return moviesListDataList.map((response) {
+    return MoviesListCard(
       poster: response["poster"],
       movieUrl: response["link"],
       title: response["title"],
@@ -165,3 +165,4 @@ List<MovieList> getMoviesListCards(List<Map<String, String>> response) {
     );
   }).toList();
 }
+
