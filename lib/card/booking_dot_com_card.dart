@@ -77,7 +77,11 @@ class BookingCard extends StatelessWidget {
         widthFactor: 0.75, // 3/4 of the viewport width
         child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.zero,
+                topRight: Radius.circular(16),
+                bottomLeft: Radius.circular(16),
+                bottomRight: Radius.circular(16)),
           ),
           elevation: 2,
           child: Column(
@@ -85,7 +89,11 @@ class BookingCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(16.0),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.zero,
+                    topRight: Radius.circular(16),
+                    bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16)),
                 child: Image.network(
                   _imageUrl,
                   height: 220,
@@ -93,13 +101,11 @@ class BookingCard extends StatelessWidget {
                   fit: BoxFit.cover,
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) return child;
-                    return const Center(
-                        child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   },
                   errorBuilder: (context, error, stackTrace) {
                     return const Center(
-                      child:
-                          Icon(Icons.image_not_supported, size: 50),
+                      child: Icon(Icons.image_not_supported, size: 50),
                     );
                   },
                 ),
@@ -136,7 +142,9 @@ class BookingCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 6),
                     Text(
-                      _breakfastIncluded ? "Breakfast Included" : "No Breakfast",
+                      _breakfastIncluded
+                          ? "Breakfast Included"
+                          : "No Breakfast",
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
