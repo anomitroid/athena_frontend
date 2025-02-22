@@ -1,4 +1,4 @@
-// lib/card/bus_card.dart
+// lib/card/bus_card.dart -> working properly
 
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
