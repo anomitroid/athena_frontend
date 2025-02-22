@@ -54,7 +54,7 @@ class ChatInput extends StatelessWidget {
                   borderSide: BorderSide.none,
                 ),
                 contentPadding: const EdgeInsets.symmetric(
-                  vertical: 20,
+                  vertical: 16,
                   horizontal: 12,
                 ),
               ),
