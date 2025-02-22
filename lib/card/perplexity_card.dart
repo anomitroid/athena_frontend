@@ -103,7 +103,7 @@ class PerplexityCard extends StatelessWidget {
                   color: Colors.purple,
                   // decoration: TextDecoration.underline,
                 ),
-                overflow: TextOverflow.ellipsis,
+                // overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
