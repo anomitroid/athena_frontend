@@ -12,7 +12,7 @@ class BookingCard extends StatelessWidget {
   final String _reviewCount;
   final String _reviewComment;
   final String _price;
-  final bool _breakfastIncluded;
+  final String _breakfastIncluded;
 
   const BookingCard({
     super.key,
@@ -23,7 +23,7 @@ class BookingCard extends StatelessWidget {
     required String reviewCount,
     required String reviewComment,
     required String price,
-    required bool breakfastIncluded,
+    required String breakfastIncluded,
   })  : _imageUrl = imageUrl,
         _hotelUrl = hotelUrl,
         _title = title,
@@ -136,19 +136,19 @@ class BookingCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Icon(
-                      _breakfastIncluded ? Icons.restaurant : Icons.no_meals,
-                      color: _breakfastIncluded ? Colors.green : Colors.red,
+                      _breakfastIncluded == "True" ? Icons.restaurant : Icons.no_meals,
+                      color: _breakfastIncluded == "True" ? Colors.green : Colors.red,
                       size: 18,
                     ),
                     const SizedBox(width: 6),
                     Text(
-                      _breakfastIncluded
+                      _breakfastIncluded == "True"
                           ? "Breakfast Included"
                           : "No Breakfast",
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: _breakfastIncluded ? Colors.green : Colors.red,
+                        color: _breakfastIncluded == "True" ? Colors.green : Colors.red,
                       ),
                     ),
                   ],
@@ -206,7 +206,7 @@ List<BookingCard> getBookingCards(dynamic response) {
       rating: data["rating"],
       reviewCount: data["review count"],
       price: data["price"],
-      breakfastIncluded: data["Breakfast included"] ?? false,
+      breakfastIncluded: data["Breakfast included"] ?? "False",
     );
   }).toList();
 }
