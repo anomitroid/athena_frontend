@@ -1,4 +1,4 @@
-package com.example.athena_frontend
+package com.example.athena
 
 import io.flutter.embedding.android.FlutterActivity
 
