@@ -89,7 +89,12 @@ class BusCard extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.grey[850],
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.only(
+              topLeft: Radius.zero,
+              topRight: Radius.circular(16),
+              bottomLeft: Radius.circular(16),
+              bottomRight: Radius.circular(16)
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
