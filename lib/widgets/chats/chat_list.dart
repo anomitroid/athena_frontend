@@ -137,26 +137,7 @@ class ChatList extends StatelessWidget {
             break;
 
           default:
-            bubble = ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: maxBubbleWidth),
-              child: Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: isUser ? Colors.purpleAccent : Colors.grey[900],
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.zero,
-                    topRight: Radius.circular(16),
-                    bottomLeft: Radius.circular(16),
-                    bottomRight: Radius.circular(16),
-                  ),
-                ),
-                child: msg["data"] ??
-                    const Text(
-                      "Unsupported message type",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-              ),
-            );
+            bubble = msg["data"];
             break;
         }
 
