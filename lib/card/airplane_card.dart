@@ -98,6 +98,7 @@ class AirplaneCard extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(50))
                     ),
+                    padding: EdgeInsets.all(5),
                     child: Image.network(
                       airlineLogo,
                       width: 40,
