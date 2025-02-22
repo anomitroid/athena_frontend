@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -7,9 +8,10 @@ import '../messages/message_bubble.dart';
 
 /// A pulsing circle widget that continuously scales between 1.0 and 1.4.
 class PulsingCircle extends StatefulWidget {
-  const PulsingCircle({Key? key}) : super(key: key);
+  const PulsingCircle({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _PulsingCircleState createState() => _PulsingCircleState();
 }
 
@@ -22,7 +24,7 @@ class _PulsingCircleState extends State<PulsingCircle>
   void initState() {
     super.initState();
 
-    // Initialize the controller with a duration of 600ms.
+    // Initialize the controller with a 600ms duration.
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 600),
@@ -73,6 +75,49 @@ class _PulsingCircleState extends State<PulsingCircle>
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// A widget that displays "Hmmm" with animated dots that appear one by one
+/// then disappear, looping continuously.
+class ThinkingText extends StatefulWidget {
+  const ThinkingText({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _ThinkingTextState createState() => _ThinkingTextState();
+}
+
+class _ThinkingTextState extends State<ThinkingText> {
+  int dotCount = 0;
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    // Update dotCount every 500ms, cycling through 0 to 3.
+    _timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+      setState(() {
+        dotCount = (dotCount + 1) % 6;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      "Hmm${"." * dotCount}",
+      style: const TextStyle(
+        color: Colors.grey,
+        fontSize: 16,
       ),
     );
   }
@@ -182,7 +227,15 @@ class ChatList extends StatelessWidget {
             break;
 
           case "loading":
-            bubble = const PulsingCircle();
+            bubble = Row(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                PulsingCircle(),
+                SizedBox(width: 4),
+                // Animated "Hmmm" text with dots.
+                ThinkingText(),
+              ],
+            );
             break;
 
           default:
