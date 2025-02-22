@@ -10,7 +10,7 @@ class ChatService {
     final url = Uri.parse(_serverUrl);
     client = http.Client();
     try {
-      final response = await client!
+      dynamic response = await client!
           .post(
             url,
             headers: {'Content-Type': 'text/plain'},
@@ -23,7 +23,7 @@ class ChatService {
       client?.close();
       client = null;
       if (response.statusCode == 200) {
-        return jsonDecode(response.body);
+        return jsonDecode(utf8.decode(response.bodyBytes));
       } else {
         return 'Error: ${response.statusCode}';
       }
