@@ -5,35 +5,38 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 class AirplaneCard extends StatelessWidget {
-  final String planeName;
-  final String planeType;
+  final String airline;
+  final String airlineLogo;
   final String departureTime;
-  final String departureDate;
+  final String departureCity;
   final String arrivalTime;
-  final String arrivalDate;
+  final String arrivalCity;
   final String duration;
-  final String finalPrice;
-  final String nonstop;
-  final String seatsAvailable;
+  final String price;
+  final String fareType;
+  final String offer;
+  final String layover;
   final String url;
 
   const AirplaneCard({
     super.key,
-    required this.planeName,
-    required this.planeType,
+    required this.airline,
+    required this.airlineLogo,
     required this.departureTime,
-    required this.departureDate,
+    required this.departureCity,
     required this.arrivalTime,
-    required this.arrivalDate,
+    required this.arrivalCity,
     required this.duration,
-    required this.finalPrice,
-    required this.nonstop,
-    required this.seatsAvailable,
+    required this.price,
+    required this.fareType,
+    required this.offer,
+    required this.layover,
     required this.url,
   });
 
-  /// Launches the URL in an external application.
   Future<void> _launchUrl() async {
+    if (url.isEmpty) return;
+    
     final Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
@@ -45,36 +48,32 @@ class AirplaneCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        showDialog<bool>(
-          context: context,
-          builder: (BuildContext dialogContext) {
-            return AlertDialog(
-              title: const Text("Confirmation"),
-              content:
-                  const Text("Do you want to proceed to the airplane website?"),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(dialogContext).pop(false);
-                  },
-                  child: const Text("Back"),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(dialogContext).pop(true);
-                  },
-                  child: const Text("Ok"),
-                ),
-              ],
-            );
-          },
-        ).then((confirmed) {
-          if (confirmed == true) {
-            _launchUrl();
-          }
-        });
-      },
+      onTap: url.isNotEmpty
+          ? () {
+              showDialog<bool>(
+                context: context,
+                builder: (BuildContext dialogContext) {
+                  return AlertDialog(
+                    title: const Text("Confirmation"),
+                    content: const Text(
+                        "Do you want to proceed to the airline website?"),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.of(dialogContext).pop(false),
+                        child: const Text("Back"),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.of(dialogContext).pop(true),
+                        child: const Text("Ok"),
+                      ),
+                    ],
+                  );
+                },
+              ).then((confirmed) {
+                if (confirmed == true) _launchUrl();
+              });
+            }
+          : null,
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 8),
         elevation: 4,
@@ -82,8 +81,7 @@ class AirplaneCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         child: Container(
-          width:
-              MediaQuery.of(context).size.width * 0.75, // 3/4 of viewport width
+          width: MediaQuery.of(context).size.width * 0.75,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.grey[850],
@@ -92,125 +90,178 @@ class AirplaneCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Plane name and type
-              Text(
-                planeName,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+              // Airline header
+              Row(
+                children: [
+                  Image.network(
+                    airlineLogo,
+                    width: 40,
+                    height: 40,
+                    errorBuilder: (context, error, stackTrace) => 
+                      const Icon(Icons.airplanemode_active, size: 40),
+                  ),
+                  const SizedBox(width: 12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        airline,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        fareType,
+                        style: TextStyle(
+                          color: Colors.grey[400],
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              Text(
-                planeType,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[400],
-                ),
-              ),
-              const SizedBox(height: 10),
-              // Departure and arrival information
+              const SizedBox(height: 16),
+
+              // Flight route
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "Departure",
-                        style: TextStyle(
+                      Text(
+                        departureCity,
+                        style: const TextStyle(
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
                       ),
                       Text(
-                        "$departureTime, $departureDate",
-                        style: TextStyle(color: Colors.grey[400]),
+                        departureTime,
+                        style: TextStyle(
+                          color: Colors.grey[400],
+                          fontSize: 14,
+                        ),
                       ),
                     ],
                   ),
+                  const Icon(Icons.flight_takeoff, color: Colors.white),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      const Text(
-                        "Arrival",
-                        style: TextStyle(
+                      Text(
+                        arrivalCity,
+                        style: const TextStyle(
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
                       ),
                       Text(
-                        "$arrivalTime, $arrivalDate",
-                        style: TextStyle(color: Colors.grey[400]),
+                        arrivalTime,
+                        style: TextStyle(
+                          color: Colors.grey[400],
+                          fontSize: 14,
+                        ),
                       ),
                     ],
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
-              // Duration, nonstop status, seats available, and price
+              const SizedBox(height: 16),
+
+              // Flight details
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Duration: $duration",
-                    style: const TextStyle(color: Colors.white),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.schedule,
+                        size: 16,
+                        color: Colors.grey[400],
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        duration.replaceAll('—', '').trim(),
+                        style: TextStyle(
+                          color: Colors.grey[400],
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    nonstop.toLowerCase() == "yes"
-                        ? "Nonstop"
-                        : nonstop.toLowerCase() == "no"
-                            ? "Layover"
-                            : "N/A",
-                    style: TextStyle(
-                        color: nonstop.toLowerCase() == "yes"
-                            ? Colors.green
-                            : Colors.red),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: layover == "0" ? Colors.green[800] : Colors.red[800],
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      layover == "0" ? "Nonstop" : "${layover} Stop${layover != "1" ? "s" : ""}",
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 12),
+
+              // Price and offer
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Seats: $seatsAvailable",
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  Text(
-                    "Price: ₹$finalPrice",
+                    "₹$price",
                     style: const TextStyle(
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ),
+                  if (offer.isNotEmpty)
+                    Flexible(
+                      child: Text(
+                        offer,
+                        style: TextStyle(
+                          color: Colors.amber[300],
+                          fontSize: 12,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ],
           ),
         ),
-      ).animate().fade(duration: 300.ms).slideX(), // Adding animation
+      ).animate().fade(duration: 300.ms).slideX(),
     );
   }
 }
 
-/// Returns a list of AirplaneCard widgets using sample airplane data.
 List<AirplaneCard> getAirplaneCards(List<Map<String, String>> response) {
-  final List<Map<String, String>> airplaneDataList = response;
-
-  return airplaneDataList.map((response) {
+  return response.map((flight) {
     return AirplaneCard(
-      planeName: response["airline"] ?? "",
-      planeType: "",
-      departureTime: response["departure_time"] ?? "",
-      departureDate: "",
-      arrivalTime: response["arrival_time"] ?? "",
-      arrivalDate: "",
-      duration: response["duration"]?.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '') ?? "",
-      finalPrice: response["final_price"] ?? "",
-      nonstop: response["layover"] ?? "",
-      seatsAvailable: "",
-      url: response["url"] ?? "",
+      airline: flight["airline"] ?? "",
+      airlineLogo: flight["airline_logo"] ?? "",
+      departureTime: flight["departure_time"] ?? "",
+      departureCity: flight["departure_city"] ?? "",
+      arrivalTime: flight["arrival_time"] ?? "",
+      arrivalCity: flight["arrival_city"] ?? "",
+      duration: flight["duration"] ?? "",
+      price: flight["price"] ?? "",
+      fareType: flight["fare_type"] ?? "",
+      offer: flight["offer"] ?? "",
+      layover: flight["layover"] ?? "0",
+      url: flight["url"] ?? "",
     );
   }).toList();
 }
