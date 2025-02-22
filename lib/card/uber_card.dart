@@ -79,7 +79,11 @@ class UberCard extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 8),
         elevation: 4,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.zero,
+              topRight: Radius.circular(16),
+              bottomLeft: Radius.circular(16),
+              bottomRight: Radius.circular(16)),
         ),
         child: SizedBox(
           width: cardWidth, // 75% of the screen width.
@@ -87,7 +91,11 @@ class UberCard extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.grey[850],
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.zero,
+                  topRight: Radius.circular(16),
+                  bottomLeft: Radius.circular(16),
+                  bottomRight: Radius.circular(16)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
