@@ -70,28 +70,25 @@ class ChatList extends StatelessWidget {
             );
             break;
           case "loading":
-            bubble = ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: maxBubbleWidth),
+            bubble = SizedBox(
+              height: 48,
+              width: 48,
               child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 4),
-                padding: const EdgeInsets.all(12),
+                margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: Colors.grey[800],
                   borderRadius: BorderRadius.only(
-                    topLeft: isUser ? Radius.circular(16) : Radius.zero,
-                    topRight: isUser ? Radius.zero : Radius.circular(16),
+                    topLeft: Radius.zero,
+                    topRight: Radius.circular(16),
                     bottomLeft: Radius.circular(16),
                     bottomRight: Radius.circular(16),
                   ),
                 ),
                 child: Center(
-                  child: SizedBox(
-                    height: 24,
-                    width: 24,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2.0,
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    ),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.0,
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   ),
                 ),
               ),
@@ -104,7 +101,7 @@ class ChatList extends StatelessWidget {
             bubble = msg["data"];
 
             // tried making bubble for all look good from here only was not successfull
-            
+
             // bubble = ConstrainedBox(
             //   constraints: BoxConstraints(maxWidth: maxBubbleWidth),
             //   child: Container(
