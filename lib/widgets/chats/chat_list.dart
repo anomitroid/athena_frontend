@@ -59,7 +59,12 @@ class ChatList extends StatelessWidget {
                 maxHeight: 250,
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.only(
+                    topLeft: isUser ? Radius.circular(16) : Radius.zero,
+                    topRight: isUser ? Radius.zero : Radius.circular(16),
+                    bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
+                  ),
                 child: Image.file(File(msg["imagePath"]), fit: BoxFit.cover),
               ),
             );
@@ -72,12 +77,17 @@ class ChatList extends StatelessWidget {
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: Colors.grey[800],
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.only(
+                    topLeft: isUser ? Radius.circular(16) : Radius.zero,
+                    topRight: isUser ? Radius.zero : Radius.circular(16),
+                    bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
+                  ),
                 ),
                 child: Center(
                   child: SizedBox(
-                    width: 24,
                     height: 24,
+                    width: 24,
                     child: CircularProgressIndicator(
                       strokeWidth: 2.0,
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
