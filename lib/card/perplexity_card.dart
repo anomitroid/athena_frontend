@@ -27,7 +27,13 @@ class PerplexityCard extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: 0.9,
       child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.zero,
+              topRight: Radius.circular(16),
+              bottomLeft: Radius.circular(16),
+              bottomRight: Radius.circular(16)),
+        ),
         elevation: 6,
         color: Colors.grey[900],
         child: Padding(
