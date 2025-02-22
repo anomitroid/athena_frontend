@@ -263,7 +263,7 @@ List<AirplaneCard> getAirplaneCards(List<Map<String, String>> response) {
       departureCity: flight["departure_city"] ?? "",
       arrivalTime: flight["arrival_time"] ?? "",
       arrivalCity: flight["arrival_city"] ?? "",
-      duration: flight["duration"] ?? "",
+      duration: flight["duration"]?.replaceAll(RegExp(r'[^a-zA-Z0-9 ]'), '') ?? "",
       price: flight["price"] ?? "",
       fareType: flight["fare_type"] ?? "",
       offer: flight["offer"] ?? "",
