@@ -144,52 +144,11 @@ class MoviesTimingCard extends StatelessWidget {
 }
 
 /// Example data generator for MoviesTimingCard widgets using the new data format.
-List<MoviesTimingCard> getMoviesTimingCards() {
-  final List<Map<String, dynamic>> cinemasDataList = [
-    {
-      "theater": "Cinepolis Nexus Seawoods, Navi Mumbai",
-      "shows": [
-        {
-          "time": "04:15 PM",
-          "special": "DOLBY 7.1",
-          "format": "2D",
-        },
-        {
-          "time": "05:45 PM",
-          "special": "DOLBY 7.1",
-          "format": "2D",
-        },
-        {
-          "time": "08:40 PM",
-          "special": "DOLBY 7.1",
-          "format": "2D",
-        },
-        {
-          "time": "11:35 PM",
-          "special": "DOLBY 7.1",
-          "format": "2D",
-        },
-      ]
-    },
-    {
-      "theater": "Cinepolis Viviana Mall, Eastern Express Highway, Thane",
-      "shows": [
-        {
-          "time": "05:55 PM",
-          "special": "DOLBY 7.1",
-          "format": "2D",
-        },
-        {
-          "time": "11:55 PM",
-          "special": "DOLBY 7.1",
-          "format": "2D",
-        },
-      ]
-    },
-  ];
+List<MoviesTimingCard> getMoviesTimingCards(List<Map<String, String>> response) {
+  final List<Map<String, dynamic>> cinemasDataList = response;
 
-  return cinemasDataList.map((data) {
-    List<ShowTiming> shows = (data["shows"] as List).map((item) {
+  return cinemasDataList.map((response) {
+    List<ShowTiming> shows = (response["shows"] as List).map((item) {
       return ShowTiming(
         time: item["time"],
         special: item["special"],
@@ -198,7 +157,7 @@ List<MoviesTimingCard> getMoviesTimingCards() {
     }).toList();
 
     return MoviesTimingCard(
-      theater: data["theater"],
+      theater: response["theater"],
       shows: shows,
     );
   }).toList();
@@ -208,17 +167,21 @@ List<MoviesTimingCard> getMoviesTimingCards() {
 ///
 /// This function looks up the cinema in the static data and prints the details
 /// (time, special, format) to the debug console.
-void printTimingsForCinema(String cinemaName) {
-  final cards = getMoviesTimingCards();
-  try {
-    final card = cards.firstWhere((card) => card.theater == cinemaName);
-    String timingsMessage = "Available timings for $cinemaName:\n";
-    for (var show in card.shows) {
-      timingsMessage +=
-          "Time: ${show.time}, Special: ${show.special}, Format: ${show.format}\n";
-    }
-    debugPrint(timingsMessage);
-  } catch (e) {
-    debugPrint("Cinema not found: $cinemaName");
-  }
-}
+/// 
+/// COMMENTED BY DEEPANSHU IDK use of it so check if not working
+/// 
+// void printTimingsForCinema(String cinemaName) {
+//   final cards = getMoviesTimingCards();
+//   try {
+//     final card = cards.firstWhere((card) => card.theater == cinemaName);
+//     String timingsMessage = "Available timings for $cinemaName:\n";
+//     for (var show in card.shows) {
+//       timingsMessage +=
+//           "Time: ${show.time}, Special: ${show.special}, Format: ${show.format}\n";
+//     }
+//     debugPrint(timingsMessage);
+//   } catch (e) {
+//     debugPrint("Cinema not found: $cinemaName");
+//   }
+// }
+

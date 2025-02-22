@@ -152,42 +152,16 @@ class MovieList extends StatelessWidget {
   }
 }
 
-List<MovieList> getMoviesListCards() {
-  final List<Map<String, dynamic>> movieListDataList = [
-    {
-      "title": "Deva",
-      "poster":
-          "https://assetscdn1.paytm.com/images/cinema/Deva-9e0ee020-dc89-11ef-8051-f1d2444f0349-172a3830-df08-11ef-8d3b-69192b9fb9f8.jpg?format=webp&imwidth=576",
-      "link": "https://paytm.com/movies/deva-movie-detail-167607",
-      "age_rating": "UA16+",
-      "language": "Hindi"
-    },
-    {
-      "title": "Sanam Teri Kasam (2016)",
-      "poster":
-          "https://assetscdn1.paytm.com/images/cinema/Sanam-Teri-Kasam-c3f6b7e0-de0a-11ef-9a57-a7efe77237ab.jpg?format=webp&imwidth=576",
-      "link":
-          "https://paytm.com/movies/sanam-teri-kasam-2016-movie-detail-140032",
-      "age_rating": "U",
-      "language": "Hindi"
-    },
-    {
-      "title": "Loveyapa",
-      "poster":
-          "https://assetscdn1.paytm.com/images/cinema/loveyappa-a65cca50-e2bd-11ef-8f0a-13039e72f1f5.jpg?format=webp&imwidth=576",
-      "link": "https://paytm.com/movies/loveyapa-movie-detail-185770",
-      "age_rating": "UA16+",
-      "language": "Hindi"
-    }
-  ];
+List<MovieList> getMoviesListCards(List<Map<String, String>> response) {
+  final List<Map<String, dynamic>> movieListDataList = response;
 
-  return movieListDataList.map((data) {
+  return movieListDataList.map((response) {
     return MovieList(
-      poster: data["poster"],
-      movieUrl: data["link"],
-      title: data["title"],
-      language: data["language"],
-      ageRating: data["age_rating"],
+      poster: response["poster"],
+      movieUrl: response["link"],
+      title: response["title"],
+      language: response["language"],
+      ageRating: response["age_rating"],
     );
   }).toList();
 }
