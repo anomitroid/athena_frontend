@@ -113,7 +113,7 @@ class MoviesListCard extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.centerLeft, // Moved rating to left
                       child: Text(
-                        ageRating,
+                        "Rating: $ageRating",
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,

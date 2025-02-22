@@ -32,7 +32,7 @@ class MoviesTimingCard extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: 0.75,
       child: Animate(
-        effects: [FadeEffect(duration: 300.ms), SlideEffect()],
+        effects: [FadeEffect(duration: 300.ms), SlideEffect(begin: Offset(-1, 0), end: Offset(0, 0), duration: 300.ms)],
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0),
@@ -67,7 +67,7 @@ class MoviesTimingCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        "Timings: $time",
+                        "Timing: $time",
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
