@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../messages/message_bubble.dart';
 
 class ChatList extends StatelessWidget {
@@ -14,6 +16,21 @@ class ChatList extends StatelessWidget {
     required this.scrollController,
     required this.maxBubbleWidth,
   });
+
+  Future<void> _launchURL(String url) async {
+    if (url.isEmpty) return;
+
+    try {
+      final Uri uri = Uri.parse(url);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+      } else {
+        debugPrint("Could not launch URL: $url");
+      }
+    } catch (e) {
+      debugPrint("Error launching URL: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +52,7 @@ class ChatList extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(vertical: 4),
                 padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
-                  color: isUser ? Colors.purpleAccent : Colors.grey[800],
+                  color: isUser ? Colors.purpleAccent : Colors.grey[900],
                   borderRadius: BorderRadius.only(
                     topLeft: isUser ? Radius.circular(16) : Radius.zero,
                     topRight: isUser ? Radius.zero : Radius.circular(16),
@@ -43,15 +60,36 @@ class ChatList extends StatelessWidget {
                     bottomRight: Radius.circular(16),
                   ),
                 ),
-                child: Text(
-                  msg["text"].toString(),
-                  style: const TextStyle(color: Colors.white, fontSize: 20),
+                child: MarkdownBody(
+                  data: msg["text"].toString(),
+                  selectable: true,
+                  styleSheet: MarkdownStyleSheet(
+                    p: const TextStyle(fontSize: 16, color: Colors.white),
+                    h1: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                    blockquote: TextStyle(
+                      fontSize: 16,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.grey[400],
+                    ),
+                    strong: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.orange),
+                    a: const TextStyle(
+                        color: Colors.blue,
+                        decoration: TextDecoration.underline),
+                  ),
+                  onTapLink: (text, url, title) {
+                    if (url != null) _launchURL(url);
+                  },
                 ),
               ),
             ).animate().fade(duration: 300.ms).slideX(
                   begin: isUser ? 1 : -1,
                 );
             break;
+
           case "image":
             bubble = ConstrainedBox(
               constraints: BoxConstraints(
@@ -69,6 +107,7 @@ class ChatList extends StatelessWidget {
               ),
             );
             break;
+
           case "loading":
             bubble = SizedBox(
               height: 48,
@@ -96,28 +135,31 @@ class ChatList extends StatelessWidget {
                   begin: isUser ? 1 : -1,
                 );
             break;
-          // For card types and others, assume msg["data"] is a widget.
+
           default:
-            bubble = msg["data"];
-
-            // tried making bubble for all look good from here only was not successfull
-
-            // bubble = ConstrainedBox(
-            //   constraints: BoxConstraints(maxWidth: maxBubbleWidth),
-            //   child: Container(
-            //     decoration: BoxDecoration(
-            //       borderRadius: BorderRadius.only(
-            //         topLeft: Radius.zero,
-            //         topRight: Radius.circular(16),
-            //         bottomLeft: Radius.circular(16),
-            //         bottomRight: Radius.circular(16),
-            //       ),
-            //     ),
-            //     child: msg["data"],
-            //   ),
-            // );
+            bubble = ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: maxBubbleWidth),
+              child: Container(
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: isUser ? Colors.purpleAccent : Colors.grey[900],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.zero,
+                    topRight: Radius.circular(16),
+                    bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
+                  ),
+                ),
+                child: msg["data"] ??
+                    const Text(
+                      "Unsupported message type",
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+              ),
+            );
             break;
         }
+
         return buildMessageWithIcon(
           messageWidget: bubble,
           index: index,
