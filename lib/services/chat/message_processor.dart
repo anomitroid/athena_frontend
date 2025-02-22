@@ -84,7 +84,11 @@ void processServerResponse({
       case "uber":
         addCardsToMessages<UberCard>(responseData, "uber", getUberCards);
       case "moviesList":
-        addCardsToMessages<MoviesListCard>(responseData, "moviesList", getMoviesListCards);
+        addCardsToMessages<MoviesListCard>(
+            responseData, "moviesList", getMoviesListCards);
+      case "moviesTiming":
+        addCardsToMessages<MoviesTimingCard>(
+            responseData, "moviesTiming", getMoviesTimingCards);
         break;
       default:
         messages.add({
