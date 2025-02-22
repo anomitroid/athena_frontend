@@ -5,6 +5,79 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../messages/message_bubble.dart';
 
+/// A pulsing circle widget that continuously scales between 1.0 and 1.4.
+class PulsingCircle extends StatefulWidget {
+  const PulsingCircle({Key? key}) : super(key: key);
+
+  @override
+  _PulsingCircleState createState() => _PulsingCircleState();
+}
+
+class _PulsingCircleState extends State<PulsingCircle>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize the controller with a duration of 600ms.
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
+
+    // Create an animation that scales from 1.0 (normal) to 1.4 (pulsed).
+    _animation = Tween<double>(begin: 1.0, end: 1.4).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    )
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          _controller.reverse();
+        } else if (status == AnimationStatus.dismissed) {
+          _controller.forward();
+        }
+      });
+
+    // Start the animation.
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 48,
+      width: 48,
+      child: Center(
+        child: AnimatedBuilder(
+          animation: _animation,
+          builder: (context, child) {
+            return Transform.scale(
+              scale: _animation.value,
+              child: child,
+            );
+          },
+          child: Container(
+            width: 12,
+            height: 12,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class ChatList extends StatelessWidget {
   final List<Map<String, dynamic>> messages;
   final ScrollController scrollController;
@@ -109,31 +182,7 @@ class ChatList extends StatelessWidget {
             break;
 
           case "loading":
-            bubble = SizedBox(
-              height: 48,
-              width: 48,
-              child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.grey[800],
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.zero,
-                    topRight: Radius.circular(16),
-                    bottomLeft: Radius.circular(16),
-                    bottomRight: Radius.circular(16),
-                  ),
-                ),
-                child: Center(
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2.0,
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                  ),
-                ),
-              ),
-            ).animate().fade(duration: 300.ms).slideX(
-                  begin: isUser ? 1 : -1,
-                );
+            bubble = const PulsingCircle();
             break;
 
           default:
