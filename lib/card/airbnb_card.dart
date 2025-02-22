@@ -70,7 +70,11 @@ class AirbnbCard extends StatelessWidget {
             0.75, // Set width to 3/4 of viewport
         child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.zero,
+                topRight: Radius.circular(16),
+                bottomLeft: Radius.circular(16),
+                bottomRight: Radius.circular(16)),
           ),
           elevation: 4,
           child: Stack(
@@ -80,7 +84,11 @@ class AirbnbCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(16.0),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.zero,
+                        topRight: Radius.circular(16),
+                        bottomLeft: Radius.circular(16),
+                        bottomRight: Radius.circular(16)),
                     child: Image.network(
                       imageUrl,
                       height: 250,
@@ -159,7 +167,11 @@ class AirbnbCard extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
                     color: const Color.fromARGB(80, 0, 0, 0),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.zero,
+                        topRight: Radius.circular(16),
+                        bottomLeft: Radius.circular(16),
+                        bottomRight: Radius.circular(16)),
                   ),
                   child: Text(
                     tagText,
@@ -184,8 +196,7 @@ List<AirbnbCard> getAirbnbCards(dynamic response) {
 
   return airbnbDataList.map((response) {
     return AirbnbCard(
-      imageUrl: response["image_url"] ??
-          "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTI3NTIzMzkxNjA2NTIzNTUxNg%3D%3D/original/4aad2d01-214c-4cf2-9dac-a17a1c2b77ab.jpeg?im_w=720&im_format=avif", // Default to empty string
+      imageUrl: response["image_url"] ?? "", // Default to empty string
       paymentUrl: response["payment_url"] ?? "",
       hotelName: response["hotel_name"] ?? "Unknown", // Fallback value
       location: response["location"] ?? "Unknown",
