@@ -93,12 +93,18 @@ class AirplaneCard extends StatelessWidget {
               // Airline header
               Row(
                 children: [
-                  Image.network(
-                    airlineLogo,
-                    width: 40,
-                    height: 40,
-                    errorBuilder: (context, error, stackTrace) => 
-                      const Icon(Icons.airplanemode_active, size: 40),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(50))
+                    ),
+                    child: Image.network(
+                      airlineLogo,
+                      width: 40,
+                      height: 40,
+                      errorBuilder: (context, error, stackTrace) => 
+                        const Icon(Icons.airplanemode_active, size: 40),
+                    ),
                   ),
                   const SizedBox(width: 12),
                   Column(
