@@ -67,11 +67,11 @@ class MoviesTimingCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        time,
+                        "Timings: $time",
                         style: const TextStyle(
                           fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.blueAccent,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -82,12 +82,13 @@ class MoviesTimingCard extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 8),
                           decoration: BoxDecoration(
-                            color: Colors.blue[800],
+                            color: Colors.purpleAccent,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: const Text(
                             "Book Now",
                             style: TextStyle(
+                              fontSize: 16,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -115,8 +116,8 @@ class MoviesTimingCard extends StatelessWidget {
             child: Text(
               "$label:",
               style: const TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
               ),
             ),
           ),
@@ -124,7 +125,7 @@ class MoviesTimingCard extends StatelessWidget {
             child: Text(
               value,
               style: const TextStyle(
-                fontSize: 14,
+                fontSize: 16,
                 color: Colors.grey,
               ),
               maxLines: 2,
