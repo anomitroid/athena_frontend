@@ -5,33 +5,40 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 class BookingCard extends StatelessWidget {
-  final String image_url;
-  final String hotel_url;
-  final String title;
-  final String rating;
-  final String review_count;
-  final String review_comment;
-  final String price;
-  final String Breakfast_included;
+  final String _imageUrl;
+  final String _hotelUrl;
+  final String _title;
+  final String _rating;
+  final String _reviewCount;
+  final String _reviewComment;
+  final String _price;
+  final bool _breakfastIncluded;
 
   const BookingCard({
     super.key,
-    required this.image_url,
-    required this.hotel_url,
-    required this.title,
-    required this.rating,
-    required this.review_count,
-    required this.review_comment,
-    required this.price,
-    required this.Breakfast_included,
-  });
+    required String imageUrl,
+    required String hotelUrl,
+    required String title,
+    required String rating,
+    required String reviewCount,
+    required String reviewComment,
+    required String price,
+    required bool breakfastIncluded,
+  })  : _imageUrl = imageUrl,
+        _hotelUrl = hotelUrl,
+        _title = title,
+        _rating = rating,
+        _reviewCount = reviewCount,
+        _reviewComment = reviewComment,
+        _price = price,
+        _breakfastIncluded = breakfastIncluded;
 
-  Future<void> _launchURL() async {
-    final Uri uri = Uri.parse(hotel_url);
+  Future<void> _launchUrl() async {
+    final Uri uri = Uri.parse(_hotelUrl);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
-      debugPrint("Could not launch $hotel_url");
+      debugPrint("Could not launch $_hotelUrl");
     }
   }
 
@@ -62,7 +69,7 @@ class BookingCard extends StatelessWidget {
           },
         ).then((confirmed) {
           if (confirmed == true) {
-            _launchURL();
+            _launchUrl();
           }
         });
       },
@@ -80,7 +87,7 @@ class BookingCard extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(16.0),
                 child: Image.network(
-                  image_url,
+                  _imageUrl,
                   height: 220,
                   width: double.infinity,
                   fit: BoxFit.cover,
@@ -101,7 +108,7 @@ class BookingCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: Text(
-                  title,
+                  _title,
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -113,7 +120,7 @@ class BookingCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: Text(
-                  review_comment,
+                  _reviewComment,
                   style: const TextStyle(color: Colors.white, fontSize: 14),
                 ),
               ),
@@ -123,23 +130,17 @@ class BookingCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Icon(
-                      Breakfast_included.toLowerCase() == "true" ? Icons.restaurant : Icons.no_meals,
-                      color: Breakfast_included.toLowerCase() == "true"
-                          ? Colors.green
-                          : Colors.red,
+                      _breakfastIncluded ? Icons.restaurant : Icons.no_meals,
+                      color: _breakfastIncluded ? Colors.green : Colors.red,
                       size: 18,
                     ),
                     const SizedBox(width: 6),
                     Text(
-                      Breakfast_included.toLowerCase() == "true"
-                          ? "Breakfast Included"
-                          : "No Breakfast",
+                      _breakfastIncluded ? "Breakfast Included" : "No Breakfast",
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: Breakfast_included.toLowerCase() == "true"
-                            ? Colors.green
-                            : Colors.red,
+                        color: _breakfastIncluded ? Colors.green : Colors.red,
                       ),
                     ),
                   ],
@@ -156,7 +157,7 @@ class BookingCard extends StatelessWidget {
                         const Icon(Icons.star, color: Colors.orange, size: 18),
                         const SizedBox(width: 4),
                         Text(
-                          '$rating ($review_count)',
+                          '$_rating ($_reviewCount)',
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
@@ -166,7 +167,7 @@ class BookingCard extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      '₹$price',
+                      '₹$_price',
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -190,14 +191,14 @@ List<BookingCard> getBookingCards(dynamic response) {
 
   return scrapedDataList.map((data) {
     return BookingCard(
-      image_url: data["image_url"],
-      hotel_url: data["hotel url"],
+      imageUrl: data["image_url"],
+      hotelUrl: data["hotel url"],
       title: data["title"],
-      review_comment: data["review comment"],
+      reviewComment: data["review comment"],
       rating: data["rating"],
-      review_count: data["review count"],
+      reviewCount: data["review count"],
       price: data["price"],
-      Breakfast_included: data["Breakfast included"] ?? "false",
+      breakfastIncluded: data["Breakfast included"] ?? false,
     );
   }).toList();
 }
