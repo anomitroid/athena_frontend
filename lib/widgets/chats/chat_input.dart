@@ -21,7 +21,7 @@ class ChatInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(bottom: 24, left: 8, right: 8, top: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
