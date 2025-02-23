@@ -88,7 +88,7 @@ class _ThinkingTextState extends State<ThinkingText> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+    _timer = Timer.periodic(const Duration(milliseconds: 300), (timer) {
       setState(() {
         dotCount = (dotCount + 1) % 6;
       });
