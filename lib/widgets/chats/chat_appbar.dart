@@ -21,7 +21,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                     sigmaX: 10, sigmaY: 10), // Frosted glass effect
                 child: Container(
                   color:
-                      Colors.purpleAccent.withAlpha(20), // Adjust transparency
+                      Colors.purpleAccent.withAlpha(5), // Adjust transparency
                 ),
               ),
             ),
@@ -41,11 +41,13 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                   color: Colors.purpleAccent,
                   letterSpacing: 5,
                   fontSize: 30,
-                  shadows: [Shadow(
-                    color: Colors.purple,
-                    offset: Offset(0, 0),
-                    blurRadius: 50.0,
-                  )],
+                  shadows: [
+                    Shadow(
+                      color: Colors.purple,
+                      offset: Offset(0, 0),
+                      blurRadius: 50.0,
+                    )
+                  ],
                 ),
               ),
             ),
@@ -54,16 +56,17 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Colors.transparent, // Ensure background is transparent
             elevation: 0,
             leading: IconButton(
-                // temp onpressed function
-                onPressed: onClear, 
-                icon: const Icon(Icons.menu_rounded),
-                color: Colors.white,
-                ),
+              // temp onpressed function
+              onPressed: onClear,
+              icon: const Icon(Icons.menu_rounded),
+              color: Colors.white,
+            ),
             actions: [
               Container(
                 margin: EdgeInsets.only(right: 10),
                 child: IconButton(
-                  icon: const Icon(Icons.note_alt_rounded, color: Colors.white),
+                  icon: const Icon(Icons.add_comment_rounded,
+                      color: Colors.white),
                   onPressed: onClear,
                 ),
               ),
