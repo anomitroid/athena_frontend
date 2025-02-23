@@ -57,12 +57,13 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                 // temp onpressed function
                 onPressed: onClear, 
                 icon: const Icon(Icons.menu_rounded),
+                color: Colors.white,
                 ),
             actions: [
               Container(
                 margin: EdgeInsets.only(right: 10),
                 child: IconButton(
-                  icon: const Icon(Icons.replay_rounded, color: Colors.grey),
+                  icon: const Icon(Icons.note_alt_rounded, color: Colors.white),
                   onPressed: onClear,
                 ),
               ),
