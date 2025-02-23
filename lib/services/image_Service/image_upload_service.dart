@@ -7,8 +7,6 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 import 'package:http/http.dart' as http;
-// ignore: unnecessary_import
-import 'package:image_picker/image_picker.dart';
 
 Future<void> sendImageToServerHelper({
   required State state,
@@ -16,7 +14,7 @@ Future<void> sendImageToServerHelper({
   required List<Map<String, dynamic>> messages,
   // You can override the URL if needed.
   // String uploadUrl = 'https://just-mainly-monster.ngrok-free.app/',
-  String uploadUrl = 'https://localhost:3000',
+  String uploadUrl = 'https://localhost:3000', //localhost for testing
 }) async {
   File file = File(imageFile.path);
 
