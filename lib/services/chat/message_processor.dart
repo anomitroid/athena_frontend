@@ -11,6 +11,7 @@ import '../../card/movies_list.dart';
 import '../../card/movies_timing.dart';
 import '../../card/zepto_card.dart';
 import '../../card/email_card.dart';
+import '../../card/flight_compare_card.dart';
 
 // Helper to convert dynamic maps to Map<String, String>.
 List<Map<String, String>> quoteKeysAndValues(dynamic response) {
@@ -96,9 +97,13 @@ void processServerResponse({
         addCardsToMessages<ZeptoCard>(
             responseData, "moviesList", getZeptoCards);
         break;
-        case "email":
+      case "email":
         addCardsToMessages<EmailCard>(
             responseData, "email", getEmailCards);
+        break;
+      case "flightCompare":
+        addCardsToMessages<FlightCompareCard>(
+            responseData, "email", getFlightCompareCards);
         break;
       default:
         messages.add({
