@@ -18,7 +18,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
               // Ensures blur is constrained to AppBar
               child: BackdropFilter(
                 filter: ImageFilter.blur(
-                    sigmaX: 10, sigmaY: 10), // Frosted glass effect
+                    sigmaX: 0, sigmaY: 0), // Frosted glass effect
                 child: Container(
                   color:
                       Colors.purpleAccent.withAlpha(5), // Adjust transparency
@@ -34,7 +34,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                 borderRadius: BorderRadius.circular(0),
               ),
               child: const Text(
-                "MAULI",
+                "ATHENA",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontFamily: "nasa",
