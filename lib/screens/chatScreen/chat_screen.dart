@@ -145,6 +145,30 @@ class _ChatScreenState extends State<ChatScreen> {
           });
         },
       ),
+      drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero, // Remove default padding
+            children: [
+              Container(
+                height: 105,
+                alignment: Alignment.bottomLeft,
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.purple[700],
+                ),
+                child: Text(
+                  'CHAT HISTORY',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'nasa',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 28,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       body: Column(
         children: [
           Expanded(

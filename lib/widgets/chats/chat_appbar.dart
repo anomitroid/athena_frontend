@@ -31,7 +31,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
               decoration: BoxDecoration(
                 color: Colors.transparent, // Solid background for title
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(0),
               ),
               child: const Text(
                 "ATHENA",
@@ -56,8 +56,9 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Colors.transparent, // Ensure background is transparent
             elevation: 0,
             leading: IconButton(
-              // temp onpressed function
-              onPressed: onClear,
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
               icon: const Icon(Icons.menu_rounded),
               color: Colors.white,
             ),
