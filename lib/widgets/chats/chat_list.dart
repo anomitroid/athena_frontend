@@ -269,7 +269,7 @@ class ChatList extends StatelessWidget {
                   break;
 
                 default:
-                  bubble = const SizedBox.shrink();
+                  bubble = msg["data"];
                   break;
               }
 
