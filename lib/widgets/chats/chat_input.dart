@@ -31,7 +31,7 @@ class ChatInput extends StatelessWidget {
             child: FloatingActionButton(
               backgroundColor: Colors.grey[900],
               onPressed: onImagePick,
-              child: const Icon(Icons.photo, color: Colors.white),
+              child: const Icon(Icons.attach_file, color: Colors.white),
             ),
           ),
           const SizedBox(width: 8),
