@@ -1,5 +1,3 @@
-import 'package:athena/card/zepto_card.dart';
-
 import '../../card/bus_card.dart';
 import '../../card/airplane_card.dart';
 import '../../card/airbnb_card.dart';
@@ -11,6 +9,8 @@ import '../../card/perplexity_card.dart';
 import '../../card/uber_card.dart';
 import '../../card/movies_list.dart';
 import '../../card/movies_timing.dart';
+import '../../card/zepto_card.dart';
+import '../../card/email_card.dart';
 
 // Helper to convert dynamic maps to Map<String, String>.
 List<Map<String, String>> quoteKeysAndValues(dynamic response) {
@@ -95,6 +95,11 @@ void processServerResponse({
       case "zepto":
         addCardsToMessages<ZeptoCard>(
             responseData, "moviesList", getZeptoCards);
+        break;
+        case "email":
+        addCardsToMessages<EmailCard>(
+            responseData, "email", getEmailCards);
+        break;
       default:
         messages.add({
           "type": "text",
