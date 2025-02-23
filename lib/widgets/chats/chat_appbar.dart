@@ -34,7 +34,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                 borderRadius: BorderRadius.circular(0),
               ),
               child: const Text(
-                "ATHENA",
+                "MAULI",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontFamily: "nasa",

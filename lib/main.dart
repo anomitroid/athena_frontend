@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Athena',
+      title: 'MAULI',
       theme: ThemeData(
         primarySwatch: Colors.purple,
         brightness: Brightness.dark,
