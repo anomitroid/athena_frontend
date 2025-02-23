@@ -196,9 +196,9 @@ class ChatList extends StatelessWidget {
                           strong: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.orange),
-                          a: const TextStyle(
-                              color: Colors.blue,
-                              decoration: TextDecoration.underline),
+                          // a: const TextStyle(
+                          //     color: Colors.blue,
+                          //     decoration: TextDecoration.underline),
                         ),
                         onTapLink: (text, url, title) {
                           if (url != null) _launchURL(url);
