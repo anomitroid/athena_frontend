@@ -139,18 +139,46 @@ class ChatList extends StatelessWidget {
     }
   }
 
-  @override
+  Widget _pillButton(IconData icon, MaterialAccentColor avatarColor, String text) {
+    return Chip(
+      avatar: Icon(icon, color: avatarColor, size: 18),
+      label: Text(text, style: TextStyle(color: Colors.white)),
+      backgroundColor: Colors.transparent,
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return messages.isEmpty
         ? Center(
-            child: Text(
-              "Mami Kesi Hai?",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[400],
-              ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min, // Centers vertically
+              crossAxisAlignment:
+                  CrossAxisAlignment.center, // Centers horizontally
+              children: [
+                Text(
+                  "How May I Help You?",
+                  textAlign: TextAlign.center, // Centers text
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.purpleAccent[50],
+                  ),
+                ),
+                SizedBox(height: 10),
+                Wrap(
+                  alignment: WrapAlignment.center, // Ensures pills are centered
+                  spacing: 8.0,
+                  children: [
+                    _pillButton(Icons.shopping_bag, Colors.blueAccent, "Shopping"),
+                    _pillButton(Icons.movie_filter_rounded, Colors.redAccent, "Movies"),
+                    _pillButton(Icons.restaurant, Colors.orangeAccent, "Restaurant"),
+                    _pillButton(Icons.hotel, Colors.greenAccent, "Travel & Stay"),
+                    _pillButton(Icons.newspaper, Colors.deepPurpleAccent, "News"),
+                  ],
+                ),
+              ],
             ),
           )
         : ListView.builder(
