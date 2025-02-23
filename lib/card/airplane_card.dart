@@ -36,7 +36,7 @@ class AirplaneCard extends StatelessWidget {
 
   Future<void> _launchUrl() async {
     if (url.isEmpty) return;
-    
+
     final Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
@@ -86,11 +86,10 @@ class AirplaneCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.grey[850],
             borderRadius: BorderRadius.only(
-            topLeft: Radius.zero,
-            topRight: Radius.circular(16),
-            bottomLeft: Radius.circular(16),
-            bottomRight: Radius.circular(16)
-            ),
+                topLeft: Radius.zero,
+                topRight: Radius.circular(10),
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(16)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,16 +99,15 @@ class AirplaneCard extends StatelessWidget {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(50))
-                    ),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(50))),
                     padding: EdgeInsets.all(5),
                     child: Image.network(
                       airlineLogo,
                       width: 40,
                       height: 40,
-                      errorBuilder: (context, error, stackTrace) => 
-                        const Icon(Icons.airplanemode_active, size: 40),
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Icon(Icons.airplanemode_active, size: 40),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -208,14 +206,17 @@ class AirplaneCard extends StatelessWidget {
                     ],
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: layover == "0" ? Colors.green[800] : Colors.red[800],
+                      color:
+                          layover == "0" ? Colors.green[800] : Colors.red[800],
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      layover == "0" ? "Nonstop" : "$layover Stop${layover != "1" ? "s" : ""}",
+                      layover == "0"
+                          ? "Nonstop"
+                          : "$layover Stop${layover != "1" ? "s" : ""}",
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 12,
@@ -268,7 +269,8 @@ List<AirplaneCard> getAirplaneCards(List<Map<String, String>> response) {
       departureCity: flight["departure_city"] ?? "",
       arrivalTime: flight["arrival_time"] ?? "",
       arrivalCity: flight["arrival_city"] ?? "",
-      duration: flight["duration"]?.replaceAll(RegExp(r'[^a-zA-Z0-9 ]'), '') ?? "",
+      duration:
+          flight["duration"]?.replaceAll(RegExp(r'[^a-zA-Z0-9 ]'), '') ?? "",
       price: flight["price"] ?? "",
       fareType: flight["fare_type"] ?? "",
       offer: flight["offer"] ?? "",

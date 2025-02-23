@@ -72,9 +72,9 @@ class AirbnbCard extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.zero,
-                topRight: Radius.circular(16),
-                bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16)),
+                topRight: Radius.circular(10),
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10)),
           ),
           elevation: 4,
           child: Stack(
@@ -86,8 +86,8 @@ class AirbnbCard extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.zero,
-                        topRight: Radius.circular(16),
-                        bottomLeft: Radius.circular(16),
+                        topRight: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(16)),
                     child: Image.network(
                       imageUrl,
@@ -170,8 +170,8 @@ class AirbnbCard extends StatelessWidget {
                     color: const Color.fromARGB(80, 0, 0, 0),
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.zero,
-                        topRight: Radius.circular(16),
-                        bottomLeft: Radius.circular(16),
+                        topRight: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(16)),
                   ),
                   child: Text(

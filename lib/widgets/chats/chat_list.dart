@@ -173,10 +173,10 @@ class ChatList extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: isUser ? Colors.purpleAccent : Colors.grey[900],
                         borderRadius: BorderRadius.only(
-                          topLeft: isUser ? Radius.circular(16) : Radius.zero,
-                          topRight: isUser ? Radius.zero : Radius.circular(16),
-                          bottomLeft: Radius.circular(16),
-                          bottomRight: Radius.circular(16),
+                          topLeft: isUser ? Radius.circular(10) : Radius.zero,
+                          topRight: isUser ? Radius.zero : Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
                         ),
                       ),
                       child: MarkdownBody(
@@ -218,10 +218,10 @@ class ChatList extends StatelessWidget {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.only(
-                        topLeft: isUser ? Radius.circular(16) : Radius.zero,
-                        topRight: isUser ? Radius.zero : Radius.circular(16),
-                        bottomLeft: Radius.circular(16),
-                        bottomRight: Radius.circular(16),
+                        topLeft: isUser ? Radius.circular(10) : Radius.zero,
+                        topRight: isUser ? Radius.zero : Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10),
                       ),
                       child:
                           Image.file(File(msg["imagePath"]), fit: BoxFit.cover),

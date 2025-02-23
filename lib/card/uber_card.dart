@@ -81,8 +81,8 @@ class UberCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.zero,
-              topRight: Radius.circular(16),
-              bottomLeft: Radius.circular(16),
+              topRight: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
               bottomRight: Radius.circular(16)),
         ),
         child: SizedBox(
@@ -93,8 +93,8 @@ class UberCard extends StatelessWidget {
               color: Colors.grey[850],
               borderRadius: BorderRadius.only(
                   topLeft: Radius.zero,
-                  topRight: Radius.circular(16),
-                  bottomLeft: Radius.circular(16),
+                  topRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
                   bottomRight: Radius.circular(16)),
             ),
             child: Column(

@@ -37,9 +37,9 @@ class PerplexityCard extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               topLeft: Radius.zero,
-              topRight: Radius.circular(16),
-              bottomLeft: Radius.circular(16),
-              bottomRight: Radius.circular(16),
+              topRight: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
             ),
           ),
           elevation: 6,
@@ -70,14 +70,17 @@ class PerplexityCard extends StatelessWidget {
       selectable: true,
       styleSheet: MarkdownStyleSheet(
         p: const TextStyle(fontSize: 16, color: Colors.white),
-        h1: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+        h1: const TextStyle(
+            fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
         blockquote: TextStyle(
           fontSize: 16,
           fontStyle: FontStyle.italic,
           color: Colors.grey[400],
         ),
-        strong: const TextStyle(fontWeight: FontWeight.bold, color: Colors.orange),
-        a: const TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
+        strong:
+            const TextStyle(fontWeight: FontWeight.bold, color: Colors.orange),
+        a: const TextStyle(
+            color: Colors.blue, decoration: TextDecoration.underline),
       ),
       onTapLink: (text, url, title) {
         if (url != null) {
@@ -103,7 +106,8 @@ class PerplexityCard extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         Column(
-          children: sources.map((url) => _buildPerplexitySourceItem(url)).toList(),
+          children:
+              sources.map((url) => _buildPerplexitySourceItem(url)).toList(),
         ),
       ],
     );
@@ -143,7 +147,9 @@ List<PerplexityCard> getPerplexityCards(dynamic response) {
   return newsDataList.map((newsData) {
     return PerplexityCard(
       content: newsData['response_content']!.replaceAll(RegExp(r'\[\d+\]'), ''),
-      sources: List<String>.from(newsData['response_url']!.split(',')).where((url) => url.isNotEmpty).toList(),
+      sources: List<String>.from(newsData['response_url']!.split(','))
+          .where((url) => url.isNotEmpty)
+          .toList(),
     );
   }).toList();
 }

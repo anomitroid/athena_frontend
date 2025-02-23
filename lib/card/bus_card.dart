@@ -90,11 +90,10 @@ class BusCard extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.grey[850],
               borderRadius: BorderRadius.only(
-              topLeft: Radius.zero,
-              topRight: Radius.circular(16),
-              bottomLeft: Radius.circular(16),
-              bottomRight: Radius.circular(16)
-              ),
+                  topLeft: Radius.zero,
+                  topRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(16)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

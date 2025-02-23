@@ -79,9 +79,9 @@ class BookingCard extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.zero,
-                topRight: Radius.circular(16),
-                bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16)),
+                topRight: Radius.circular(10),
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10)),
           ),
           elevation: 2,
           child: Column(
@@ -91,8 +91,8 @@ class BookingCard extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.zero,
-                    topRight: Radius.circular(16),
-                    bottomLeft: Radius.circular(16),
+                    topRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
                     bottomRight: Radius.circular(16)),
                 child: Image.network(
                   _imageUrl,
@@ -136,8 +136,12 @@ class BookingCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Icon(
-                      _breakfastIncluded == "True" ? Icons.restaurant : Icons.no_meals,
-                      color: _breakfastIncluded == "True" ? Colors.green : Colors.red,
+                      _breakfastIncluded == "True"
+                          ? Icons.restaurant
+                          : Icons.no_meals,
+                      color: _breakfastIncluded == "True"
+                          ? Colors.green
+                          : Colors.red,
                       size: 18,
                     ),
                     const SizedBox(width: 6),
@@ -148,7 +152,9 @@ class BookingCard extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: _breakfastIncluded == "True" ? Colors.green : Colors.red,
+                        color: _breakfastIncluded == "True"
+                            ? Colors.green
+                            : Colors.red,
                       ),
                     ),
                   ],
