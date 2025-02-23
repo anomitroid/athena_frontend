@@ -1,5 +1,3 @@
-// ignore_for_file: use_super_parameters, deprecated_member_use
-
 import 'package:flutter/material.dart';
 
 class ChatInput extends StatelessWidget {
@@ -11,14 +9,14 @@ class ChatInput extends StatelessWidget {
   final VoidCallback onImagePick;
 
   const ChatInput({
-    Key? key,
+    super.key,
     required this.controller,
     required this.focusNode,
     required this.isLoading,
     required this.onSend,
     required this.onCancel,
     required this.onImagePick,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +30,10 @@ class ChatInput extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: isLoading ? Colors.grey : Colors.grey[900],
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(30),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withAlpha(10),
                     blurRadius: 4,
                     offset: const Offset(0, 2),
                   ),
@@ -61,16 +59,16 @@ class ChatInput extends StatelessWidget {
                       hintText: "Ask something...",
                       hintStyle: const TextStyle(color: Colors.grey),
                       border: InputBorder.none,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 16, 48, 16),
+                      contentPadding: const EdgeInsets.fromLTRB(24, 16, 48, 16),
                     ),
                   ),
                   // Clip icon always at the bottom right of the text box.
                   Positioned(
                     right: 8,
-                    bottom: 8,
+                    bottom: 4,
                     child: IconButton(
                       icon: const Icon(
-                        Icons.attach_file,
+                        Icons.attach_file_rounded,
                         color: Colors.grey,
                         size: 24,
                       ),
@@ -88,11 +86,11 @@ class ChatInput extends StatelessWidget {
             height: 56,
             width: 56,
             decoration: BoxDecoration(
-              color: isLoading ? Colors.red : Colors.purpleAccent,
+              color: isLoading ? Colors.redAccent : Colors.purpleAccent,
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
+                  color: Colors.black.withAlpha(20),
                   offset: const Offset(0, 2),
                   blurRadius: 4,
                 ),
@@ -101,9 +99,9 @@ class ChatInput extends StatelessWidget {
             child: IconButton(
               onPressed: isLoading ? onCancel : onSend,
               icon: Icon(
-                isLoading ? Icons.stop : Icons.send,
+                isLoading ? Icons.stop : Icons.send_rounded,
                 color: Colors.white,
-                size: 24,
+                size: 32,
               ),
               splashRadius: 28,
             ),
